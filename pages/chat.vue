@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <ul class="chat-field pa-6">
+  <div class="chat d-flex flex-column">
+    <ul
+      ref="block"
+      class="chat-field mb-auto pa-6"
+    >
       <Message
         v-for="(message, index) in messages"
         :key="index"
@@ -23,12 +26,20 @@ export default {
     Message,
     NewMessagesForm
   },
+  layout: 'room',
   middleware: ['chat'],
   computed: {
     ...mapState([
       'user',
       'messages'
     ])
+  },
+  watch: {
+    messages (val) {
+      setTimeout(() => {
+        this.$refs.block.scrollTop = this.$refs.block.scrollHeight
+      }, 0)
+    }
   },
   head () {
     return {
@@ -37,3 +48,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .chat {
+    height: 100%;
+    .chat-field {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  }
+</style>

@@ -21,8 +21,14 @@
 <script>
 export default {
   props: {
-    name: String,
-    text: String,
+    name: {
+      default: '',
+      type: String
+    },
+    text: {
+      default: '',
+      type: String
+    },
     owner: {
       default: false,
       type: Boolean

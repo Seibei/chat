@@ -1,25 +1,26 @@
 <template>
-  <v-form>
-    <v-container fluid>
-      <v-row>
-        <v-col>
-          <v-text-field
-            v-model="text"
-            label="Message"
-            solo
-          />
-        </v-col>
-        <v-col>
-          <v-btn
-            large
-            @click="send"
-          >
-            Send
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
+  <v-card class="new-message-form d-flex px-4">
+    <v-row>
+      <v-col class="align-center d-flex">
+        <v-text-field
+          v-model="text"
+          label="Message"
+          @keydown.enter="send"
+        />
+      </v-col>
+      <v-col
+        cols="2"
+        class="align-center justify-center d-flex"
+      >
+        <v-btn
+          large
+          @click="send"
+        >
+          Send
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
@@ -43,7 +44,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

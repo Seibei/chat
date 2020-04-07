@@ -1,5 +1,9 @@
 <template>
   <v-app dark>
+    <AlertMessage
+      :snackbar="snackbar"
+      :text="snackbarMessage"
+    />
     <v-navigation-drawer
       v-model="drawer"
       app
@@ -36,7 +40,7 @@
       </v-btn>
       <v-toolbar-title>Room: {{ user.room }}</v-toolbar-title>
     </v-app-bar>
-    <v-content>
+    <v-content class="room-layout">
       <nuxt />
     </v-content>
   </v-app>
@@ -44,10 +48,16 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import AlertMessage from '../components/AlertMessage/index.vue'
 
 export default {
+  components: {
+    AlertMessage
+  },
   data: () => ({
-    drawer: true
+    drawer: true,
+    snackbar: false,
+    snackbarMessage: ''
   }),
   computed: {
     ...mapState([
@@ -61,6 +71,8 @@ export default {
     ]),
     exit () {
       this.$socket.emit('userLeft', this.user.id, () => {
+        this.snackbar = true
+        this.snackbarMessage = `${this.user.name} left chat`
         this.$router.push('/?message=leftChat')
         this.clearUser()
       })
@@ -68,3 +80,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .room-layout {
+    height: 100vh;
+  }
+</style>
